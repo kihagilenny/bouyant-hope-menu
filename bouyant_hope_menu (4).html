@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bouyant Hope Delicacies – Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8973A;
+    --gold-light: #F5D98A;
+    --green: #2D5A3D;
+    --green-mid: #3E7A54;
+    --cream: #FAF6EE;
+    --warm-white: #FFFDF8;
+    --text: #1C1C1C;
+    --text-muted: #7A6A52;
+    --card-bg: #FFFFFF;
+    --shadow: 0 4px 24px rgba(44,40,28,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  .hero {
+    background: linear-gradient(135deg, #1a3a28 0%, #2D5A3D 100%);
+    padding: 44px 20px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=60') center/cover no-repeat;
+    opacity: 0.14;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold); color: #1a3a28;
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; padding: 5px 16px;
+    border-radius: 20px; margin-bottom: 14px; position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 6vw, 48px);
+    color: #fff; line-height: 1.15; position: relative;
+  }
+  .hero h1 span { color: var(--gold-light); font-style: italic; }
+  .hero-sub { color: rgba(255,255,255,0.65); font-size: 12px; letter-spacing: 2px; margin-top: 8px; position: relative; }
+  .hero-divider { width: 50px; height: 2px; background: var(--gold); margin: 14px auto 0; position: relative; }
+
+  .nav-wrap {
+    background: var(--warm-white);
+    border-bottom: 1px solid rgba(200,151,58,0.18);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .nav-tabs {
+    display: flex; overflow-x: auto; scrollbar-width: none;
+    max-width: 660px; margin: 0 auto;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0; background: none; border: none;
+    padding: 13px 16px 11px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 11.5px; font-weight: 500;
+    color: var(--text-muted); letter-spacing: 0.4px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    white-space: nowrap;
+  }
+  .tab-btn .tab-icon { font-size: 17px; }
+  .tab-btn.active { color: var(--green); border-bottom-color: var(--gold); font-weight: 700; }
+  .tab-btn:hover { color: var(--green); }
+
+  .content { max-width: 660px; margin: 0 auto; padding: 0 14px 80px; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-banner {
+    height: 150px; border-radius: 16px; overflow: hidden;
+    margin: 18px 0 16px; position: relative;
+  }
+  .section-banner img { width: 100%; height: 100%; object-fit: cover; }
+  .section-banner-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, rgba(20,50,32,0.78) 0%, transparent 65%);
+    display: flex; align-items: center; padding: 20px;
+  }
+  .section-banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; color: #fff; font-style: italic;
+  }
+
+  .subsection-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin: 22px 0 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .subsection-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(200,151,58,0.35), transparent);
+  }
+
+  .items-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .item-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 10px 14px 10px 10px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.055);
+    border: 1px solid rgba(200,151,58,0.10);
+    transition: transform 0.15s, box-shadow 0.15s;
+    overflow: hidden;
+  }
+  .item-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+
+  .item-thumb {
+    width: 62px; height: 62px; border-radius: 10px;
+    object-fit: cover; flex-shrink: 0;
+    background: #e8e0d4;
+  }
+  .item-info { flex: 1; min-width: 0; }
+  .item-name { font-size: 13.5px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .item-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .item-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700; color: var(--green);
+    flex-shrink: 0; white-space: nowrap;
+  }
+  .item-price span { font-size: 10px; font-family: 'DM Sans', sans-serif; color: var(--text-muted); font-weight: 400; }
+  .tag-special {
+    background: #FFF3E0; color: #E65100;
+    font-size: 9px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 2px 6px; border-radius: 4px; margin-left: 5px;
+  }
+
+  .qr-section { text-align: center; padding: 30px 20px; }
+  .qr-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--green); margin-bottom: 6px; }
+  .qr-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+  #qr-canvas-wrap {
+    display: inline-block; background: #fff;
+    padding: 18px; border-radius: 20px;
+    box-shadow: var(--shadow); border: 2px solid var(--gold-light);
+  }
+  #qr-canvas-wrap canvas { display: block; }
+  .qr-label { margin-top: 14px; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; }
+  .qr-btn {
+    display: inline-block; margin-top: 18px;
+    background: var(--green); color: #fff; border: none;
+    border-radius: 30px; padding: 12px 32px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px; transition: background 0.2s;
+  }
+  .qr-btn:hover { background: var(--green-mid); }
+
+  .footer {
+    text-align: center; padding: 18px;
+    font-size: 11px; color: var(--text-muted);
+    background: var(--warm-white);
+    border-top: 1px solid rgba(200,151,58,0.15);
+  }
+  .footer strong { color: var(--green); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">🍽 Naivasha – Merlin Resort</div>
+  <h1>Bouyant Hope<br><span>Delicacies</span></h1>
+  <p class="hero-sub">BREAKFAST · MEALS · DRINKS</p>
+  <div class="hero-divider"></div>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showTab('breakfast')" id="t-breakfast"><span class="tab-icon">☕</span>Breakfast</button>
+    <button class="tab-btn" onclick="showTab('meals')" id="t-meals"><span class="tab-icon">🍛</span>Main Meals</button>
+    <button class="tab-btn" onclick="showTab('accompaniments')" id="t-accompaniments"><span class="tab-icon">🍚</span>Sides</button>
+    <button class="tab-btn" onclick="showTab('drinks')" id="t-drinks"><span class="tab-icon">🥤</span>Drinks</button>
+    <button class="tab-btn" onclick="showTab('qr')" id="t-qr"><span class="tab-icon">📲</span>QR Code</button>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- BREAKFAST -->
+  <div class="section active" id="breakfast">
+    <div class="section-banner">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?w=700&q=70" alt="Breakfast">
+      <div class="section-banner-overlay"><div class="section-banner-title">Morning Favourites</div></div>
+    </div>
+
+    <div class="subsection-label">Hot Beverages</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=70" alt="Mixed Tea"><div class="item-info"><div class="item-name">Mixed Tea</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=70" alt="Black Tea"><div class="item-info"><div class="item-name">Black Tea</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=150&q=70" alt="Lemon Tea"><div class="item-info"><div class="item-name">Lemon Tea</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=150&q=70" alt="Lemon Tea Honey"><div class="item-info"><div class="item-name">Lemon Tea with Honey</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=150&q=70" alt="Ginger Tea"><div class="item-info"><div class="item-name">Ginger Tea</div><div class="item-desc">Warming spiced ginger</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=150&q=70" alt="White Coffee"><div class="item-info"><div class="item-name">White Coffee</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=150&q=70" alt="Black Coffee"><div class="item-info"><div class="item-name">Black Coffee</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1517578239113-b03992dcdd25?w=150&q=70" alt="White Chocolate"><div class="item-info"><div class="item-name">White Chocolate</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=150&q=70" alt="Black Chocolate"><div class="item-info"><div class="item-name">Black Chocolate</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=150&q=70" alt="Tea Masala"><div class="item-info"><div class="item-name">Tea Masala</div><div class="item-desc">Spiced chai blend</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=150&q=70" alt="White Milo"><div class="item-info"><div class="item-name">White Milo</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1517578239113-b03992dcdd25?w=150&q=70" alt="Milky Chocolate"><div class="item-info"><div class="item-name">Milky Chocolate</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=150&q=70" alt="Milk Cup"><div class="item-info"><div class="item-name">Milk Cup</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1614961233913-a5113a4a34ed?w=150&q=70" alt="Uji Power"><div class="item-info"><div class="item-name">Uji Power</div><div class="item-desc">Nutritious fermented porridge</div></div><div class="item-price">150 <span>KES</span></div></div>
+    </div>
+
+    <div class="subsection-label">Snacks</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=150&q=70" alt="Andazi"><div class="item-info"><div class="item-name">Andazi</div><div class="item-desc">Sweet fried dough</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=150&q=70" alt="Sausage"><div class="item-info"><div class="item-name">Sausage</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=150&q=70" alt="Samosa"><div class="item-info"><div class="item-name">Samosa</div><div class="item-desc">Crispy pastry, meat or veg</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=150&q=70" alt="Chapati"><div class="item-info"><div class="item-name">Chapati</div><div class="item-desc">Soft layered flatbread</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=150&q=70" alt="Nduma"><div class="item-info"><div class="item-name">Nduma</div><div class="item-desc">Boiled arrowroot</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><svg class="item-thumb" viewBox="0 0 62 62" xmlns="http://www.w3.org/2000/svg" style="background:#FFF8EE;border-radius:10px;flex-shrink:0"><rect width="62" height="62" fill="#FFF8EE" rx="10"/><ellipse cx="31" cy="40" rx="22" ry="10" fill="#F5DEB3" opacity="0.5"/><g><ellipse cx="20" cy="34" rx="9" ry="5" fill="#F5E6C8" stroke="#D4A96A" stroke-width="1.2" transform="rotate(-18 20 34)"><animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/></ellipse><ellipse cx="31" cy="30" rx="9" ry="5" fill="#FAEBD7" stroke="#D4A96A" stroke-width="1.2" transform="rotate(5 31 30)"><animate attributeName="opacity" values="0.8;1;0.8" dur="2.3s" repeatCount="indefinite"/></ellipse><ellipse cx="42" cy="35" rx="9" ry="5" fill="#F5E6C8" stroke="#D4A96A" stroke-width="1.2" transform="rotate(-10 42 35)"><animate attributeName="opacity" values="1;0.75;1" dur="1.9s" repeatCount="indefinite"/></ellipse></g><circle cx="20" cy="34" r="2" fill="#C8973A" opacity="0.6" transform="rotate(-18 20 34)"/><circle cx="31" cy="30" r="2" fill="#C8973A" opacity="0.6"/><circle cx="42" cy="35" r="2" fill="#C8973A" opacity="0.6" transform="rotate(-10 42 35)"/></svg><div class="item-info"><div class="item-name">Cassava</div><div class="item-desc">Boiled or fried cassava</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=150&q=70" alt="Fried Eggs"><div class="item-info"><div class="item-name">Fried Eggs</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1510693206972-df098062cb71?w=150&q=70" alt="Spanish Omelette"><div class="item-info"><div class="item-name">Spanish Omelette</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1510693206972-df098062cb71?w=150&q=70" alt="Spanish Kienyeji"><div class="item-info"><div class="item-name">Spanish Kienyeji</div><div class="item-desc">Free-range egg omelette</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=150&q=70" alt="Fried Kienyeji"><div class="item-info"><div class="item-name">Fried Kienyeji</div><div class="item-desc">Fried free-range eggs</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=150&q=70" alt="Rolex"><div class="item-info"><div class="item-name">Rolex</div><div class="item-desc">Egg & veg chapati wrap</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=150&q=70" alt="Pancake"><div class="item-info"><div class="item-name">Pancake</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=150&q=70" alt="Toast"><div class="item-info"><div class="item-name">Toast</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=150&q=70" alt="French Toast"><div class="item-info"><div class="item-name">French Toast</div><div class="item-desc">Golden egg-dipped bread</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><svg class="item-thumb" viewBox="0 0 62 62" xmlns="http://www.w3.org/2000/svg" style="background:#FFFBF0;border-radius:10px;flex-shrink:0"><rect width="62" height="62" fill="#FFFBF0" rx="10"/><!-- bun --><ellipse cx="31" cy="36" rx="22" ry="10" fill="#F5C842" stroke="#D4A017" stroke-width="1.2"/><ellipse cx="31" cy="27" rx="22" ry="10" fill="#F9D84A" stroke="#D4A017" stroke-width="1.2"/><!-- sausage --><ellipse cx="31" cy="31" rx="16" ry="6" fill="#C0522A" stroke="#8B3A1A" stroke-width="1"/><ellipse cx="31" cy="31" rx="14" ry="4.5" fill="#D4603A" opacity="0.8"/><!-- ketchup squiggle --><path d="M18 29 Q22 26 26 29 Q30 32 34 29 Q38 26 44 29" stroke="#E53935" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="d" values="M18 29 Q22 26 26 29 Q30 32 34 29 Q38 26 44 29;M18 30 Q22 27 26 30 Q30 33 34 30 Q38 27 44 30;M18 29 Q22 26 26 29 Q30 32 34 29 Q38 26 44 29" dur="2s" repeatCount="indefinite"/></path><!-- steam --><line x1="26" y1="18" x2="25" y2="12" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" opacity="0.6"><animate attributeName="y2" values="12;9;12" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.5s" repeatCount="indefinite"/></line><line x1="31" y1="16" x2="30" y2="10" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" opacity="0.5"><animate attributeName="y2" values="10;7;10" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;0.1;0.5" dur="1.8s" repeatCount="indefinite"/></line><line x1="36" y1="18" x2="37" y2="12" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" opacity="0.6"><animate attributeName="y2" values="12;9;12" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0.2;0.6" dur="1.6s" repeatCount="indefinite"/></line></svg><div class="item-info"><div class="item-name">Hot Dog</div></div><div class="item-price">300 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=150&q=70" alt="Special Sausage 1"><div class="item-info"><div class="item-name">1 Special Sausage <span class="tag-special">Special</span></div><div class="item-desc">Sausage served with fries</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=150&q=70" alt="Special Sausage 2"><div class="item-info"><div class="item-name">2 Special Sausages <span class="tag-special">Special</span></div><div class="item-desc">Sausages served with fries</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=150&q=70" alt="Special Samosa 1"><div class="item-info"><div class="item-name">1 Special Samosa <span class="tag-special">Special</span></div><div class="item-desc">Samosa served with fries</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=150&q=70" alt="Special Samosa 2"><div class="item-info"><div class="item-name">2 Special Samosas <span class="tag-special">Special</span></div><div class="item-desc">Samosas served with fries</div></div><div class="item-price">200 <span>KES</span></div></div>
+    </div>
+  </div>
+
+  <!-- MAIN MEALS -->
+  <div class="section" id="meals">
+    <div class="section-banner">
+      <img src="https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=700&q=70" alt="Main Meals">
+      <div class="section-banner-overlay"><div class="section-banner-title">Main Meals</div></div>
+    </div>
+
+    <div class="subsection-label">Proteins</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=150&q=70" alt="Beef"><div class="item-info"><div class="item-name">Beef</div><div class="item-desc">Slow-cooked beef stew</div></div><div class="item-price">300 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1529042410759-befb1204b468?w=150&q=70" alt="Mutton"><div class="item-info"><div class="item-name">Mutton</div><div class="item-desc">Tender goat stew</div></div><div class="item-price">400 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=150&q=70" alt="Chicken Broiler"><div class="item-info"><div class="item-name">Chicken Broiler</div></div><div class="item-price">400 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=150&q=70" alt="Chicken Kienyeji"><div class="item-info"><div class="item-name">Chicken Kienyeji</div><div class="item-desc">Free-range chicken</div></div><div class="item-price">500 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=150&q=70" alt="Pork"><div class="item-info"><div class="item-name">Pork</div></div><div class="item-price">500 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1608835291093-394b0c943a75?w=150&q=70" alt="Matumbo"><div class="item-info"><div class="item-name">Matumbo</div><div class="item-desc">Tripe stew</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=150&q=70" alt="Fish"><div class="item-info"><div class="item-name">Fish with Accompaniment</div><div class="item-desc">Tilapia, fried or stewed</div></div><div class="item-price">700 <span>KES</span></div></div>
+    </div>
+
+    <div class="subsection-label">Legumes & Stews</div>
+    <div class="items-list">
+      <div class="item-card"><svg class="item-thumb" viewBox="0 0 62 62" xmlns="http://www.w3.org/2000/svg" style="background:#F0FFF4;border-radius:10px;flex-shrink:0"><rect width="62" height="62" fill="#F0FFF4" rx="10"/><ellipse cx="31" cy="44" rx="24" ry="8" fill="#A8D5B5" opacity="0.3"/><circle cx="18" cy="32" r="7" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"><animate attributeName="r" values="7;7.5;7" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="31" cy="28" r="7" fill="#43A047" stroke="#2E7D32" stroke-width="1"><animate attributeName="r" values="7;7.6;7" dur="2.1s" repeatCount="indefinite"/></circle><circle cx="44" cy="32" r="7" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"><animate attributeName="r" values="7;7.4;7" dur="1.9s" repeatCount="indefinite"/></circle><circle cx="18" cy="32" r="2.5" fill="#A5D6A7" opacity="0.7"/><circle cx="31" cy="28" r="2.5" fill="#A5D6A7" opacity="0.7"/><circle cx="44" cy="32" r="2.5" fill="#A5D6A7" opacity="0.7"/><path d="M10 20 Q20 10 35 16 Q48 10 54 20" stroke="#66BB6A" stroke-width="2" fill="none" stroke-linecap="round"><animate attributeName="d" values="M10 20 Q20 10 35 16 Q48 10 54 20;M10 19 Q20 9 35 15 Q48 9 54 19;M10 20 Q20 10 35 16 Q48 10 54 20" dur="2.5s" repeatCount="indefinite"/></path></svg><div class="item-info"><div class="item-name">Minji</div><div class="item-desc">Green peas stew</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=150&q=70" alt="Njahi"><div class="item-info"><div class="item-name">Njahi</div><div class="item-desc">Black beans</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=150&q=70" alt="Beans"><div class="item-info"><div class="item-name">Beans</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&q=70" alt="Githeri"><div class="item-info"><div class="item-name">Githeri</div><div class="item-desc">Maize & beans</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&q=70" alt="Githeri Minji"><div class="item-info"><div class="item-name">Githeri Minji</div><div class="item-desc">Maize, beans & peas</div></div><div class="item-price">300 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=150&q=70" alt="Githeri Special"><div class="item-info"><div class="item-name">Githeri Special <span class="tag-special">Special</span></div></div><div class="item-price">400 <span>KES</span></div></div>
+    </div>
+
+    <div class="subsection-label">Pilau</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=150&q=70" alt="Pilau Beef"><div class="item-info"><div class="item-name">Pilau Beef</div><div class="item-desc">Spiced rice with beef</div></div><div class="item-price">350 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=150&q=70" alt="Pilau Plain"><div class="item-info"><div class="item-name">Pilau Plain</div><div class="item-desc">Fragrant spiced rice</div></div><div class="item-price">200 <span>KES</span></div></div>
+    </div>
+  </div>
+
+  <!-- SIDES -->
+  <div class="section" id="accompaniments">
+    <div class="section-banner">
+      <img src="https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=700&q=70" alt="Sides">
+      <div class="section-banner-overlay"><div class="section-banner-title">Sides & Accompaniments</div></div>
+    </div>
+
+    <div class="subsection-label">Choose Your Side</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=150&q=70" alt="Ugali"><div class="item-info"><div class="item-name">Ugali</div><div class="item-desc">Kenyan cornmeal staple</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1516684732162-798a0062be99?w=150&q=70" alt="Rice"><div class="item-info"><div class="item-name">Rice</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=150&q=70" alt="Chips"><div class="item-info"><div class="item-name">Chips</div><div class="item-desc">Golden crispy fries</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=150&q=70" alt="Chapati"><div class="item-info"><div class="item-name">Chapati</div><div class="item-desc">Soft layered flatbread</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=150&q=70" alt="Pilau"><div class="item-info"><div class="item-name">Pilau</div><div class="item-desc">Spiced aromatic rice</div></div><div class="item-price">200 <span>KES</span></div></div>
+    </div>
+  </div>
+
+  <!-- DRINKS -->
+  <div class="section" id="drinks">
+    <div class="section-banner">
+      <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=700&q=70" alt="Drinks">
+      <div class="section-banner-overlay"><div class="section-banner-title">Cold Drinks & Juices</div></div>
+    </div>
+
+    <div class="subsection-label">Cold Drinks</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1527960471264-932f39eb5846?w=150&q=70" alt="Soda Pet"><div class="item-info"><div class="item-name">Soda (Pet Bottle)</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1527960471264-932f39eb5846?w=150&q=70" alt="Soda Glass"><div class="item-info"><div class="item-name">Soda (Glass)</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=150&q=70" alt="Minute Maid"><div class="item-info"><div class="item-name">Minute Maid</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1527960471264-932f39eb5846?w=150&q=70" alt="Predator"><div class="item-info"><div class="item-name">Predator Energy</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1523362628745-0c100150b504?w=150&q=70" alt="Water 1L"><div class="item-info"><div class="item-name">Water 1L</div></div><div class="item-price">100 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1523362628745-0c100150b504?w=150&q=70" alt="Water 500ml"><div class="item-info"><div class="item-name">Water 500ml</div></div><div class="item-price">50 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1523362628745-0c100150b504?w=150&q=70" alt="Keringet 1L"><div class="item-info"><div class="item-name">Keringet 1L</div></div><div class="item-price">150 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1523362628745-0c100150b504?w=150&q=70" alt="Keringet 500ml"><div class="item-info"><div class="item-name">Keringet 500ml</div></div><div class="item-price">100 <span>KES</span></div></div>
+    </div>
+
+    <div class="subsection-label">Fresh Juices</div>
+    <div class="items-list">
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1497534446932-c925b458314e?w=150&q=70" alt="Cocktail Juice"><div class="item-info"><div class="item-name">Cocktail Juice</div><div class="item-desc">Freshly blended tropical mix</div></div><div class="item-price">300 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1546173159-315724a31696?w=150&q=70" alt="Mango Juice"><div class="item-info"><div class="item-name">Mango Juice</div><div class="item-desc">Fresh Kenyan mango</div></div><div class="item-price">200 <span>KES</span></div></div>
+      <div class="item-card"><img class="item-thumb" src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=150&q=70" alt="Passion Juice"><div class="item-info"><div class="item-name">Passion Juice</div><div class="item-desc">Tangy fresh passion fruit</div></div><div class="item-price">200 <span>KES</span></div></div>
+    </div>
+  </div>
+
+  <!-- QR CODE -->
+  <div class="section" id="qr">
+    <div class="qr-section">
+      <p style="font-size:36px;margin-bottom:12px;">📲</p>
+      <div class="qr-title">Share This Menu</div>
+      <p class="qr-sub">Scan to open the digital menu on any device</p>
+      <div id="qr-canvas-wrap">
+        <canvas id="qr-canvas"></canvas>
+      </div>
+      <p class="qr-label">BOUYANT HOPE DELICACIES</p><br>
+      <button class="qr-btn" onclick="downloadQR()">⬇ Download QR Code</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Bouyant Hope Delicacies</strong> &nbsp;·&nbsp; All prices in Kenyan Shillings (KES)
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('t-' + id).classList.add('active');
+    if (id === 'qr') generateQR();
+  }
+
+  let qrGenerated = false;
+  function generateQR() {
+    if (qrGenerated) return;
+    qrGenerated = true;
+    const canvas = document.getElementById('qr-canvas');
+    const url = window.location.href;
+    QRCode.toCanvas(canvas, url, {
+      width: 220, margin: 2,
+      color: { dark: '#2D5A3D', light: '#FFFFFF' }
+    }, function(err) {
+      if (err) {
+        canvas.style.display = 'none';
+        const img = document.createElement('img');
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(url)}&color=2D5A3D`;
+        img.width = 220; img.height = 220;
+        document.getElementById('qr-canvas-wrap').appendChild(img);
+      }
+    });
+  }
+
+  function downloadQR() {
+    const canvas = document.getElementById('qr-canvas');
+    if (canvas && canvas.width > 0) {
+      const link = document.createElement('a');
+      link.download = 'bouyant-hope-qr.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    } else {
+      const url = window.location.href;
+      window.open(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(url)}&color=2D5A3D&download=1`);
+    }
+  }
+</script>
+</body>
+</html>
